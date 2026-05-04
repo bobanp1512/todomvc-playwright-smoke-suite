@@ -40,7 +40,7 @@ test.describe('TodoMVC Smoke Tests', () => {
     test('TC-03: Unmark a completed todo item', async () => {
 
         // Add a todo item
-        await todo.addTodo('Do something');
+        await todo.addTodo('First item');
 
         // Mark it as completed
         await todo.completeTodo(0);

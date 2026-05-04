@@ -11,11 +11,11 @@
 - User is on the TodoMVC homepage
 
 **Steps:**
-1. Enter text "Do something" in the input field
+1. Enter text "First item" in the input field
 2. Press Enter
 
 **Expected Result:**
-- A new todo item "Do something" is added to the list
+- A new todo item "First item" is added to the list
 - Input field is cleared
 - Item count shows "1 item left"
 
@@ -27,7 +27,7 @@
 - At least one todo item exists
 
 **Steps:**
-1. Enter text "Do something" in the input field
+1. Enter text "First item" in the input field
 2. Press Enter
 3. Click the checkbox next to the todo item
 
@@ -42,7 +42,7 @@
 - User is on the TodoMVC homepage
 
 **Steps:**
-1. Enter text "Do something" in the input field
+1. Enter text "First item" in the input field
 2. Press Enter
 3. Click the checkbox next to the todo item to mark it as completed
 4. Click the checkbox again to unmark the todo item
@@ -82,15 +82,15 @@
 - Multiple todo items exist
 
 **Steps:**
-1. Add todo "Task 1"
-2. Add todo "Task 2"
+1. Add todo "Filter 1"
+2. Add todo "Filter 2"
 3. Mark "Task 1" as completed
 4. Click on the "Active" filter
 
 **Expected Result:**
 - Only active (uncompleted) todo items are displayed
-- "Task 2" is visible
-- "Task 1" is not visible
+- "Filter 2" is visible
+- "Filter 1" is not visible
 
 
 ## TC-06: Edit an existing todo item
