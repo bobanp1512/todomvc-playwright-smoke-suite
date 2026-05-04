@@ -55,7 +55,7 @@ export class TodoPage {
         const todoItem = this.todoItems.nth(index);
 
         // Enter edit mode by double-clicking the todo
-        await todoItem.dblclick();
+        await todoItem.dblclick(); 
 
         // Update the text and confirm the change
         const editInput = todoItem.locator('input.edit');
