@@ -11,6 +11,8 @@ export class TodoPage {
     readonly activeFilter: Locator;
     readonly completedFilter: Locator;
     readonly allFilter: Locator;
+    readonly todoCount: Locator;
+    readonly toggleAllCheckbox: Locator;
 
 
 
@@ -22,6 +24,9 @@ export class TodoPage {
         this.activeFilter = page.getByRole('link', { name: 'Active', exact: true });
         this.completedFilter = page.getByRole('link', { name: 'Completed', exact: true });
         this.allFilter = page.getByRole('link', { name: 'All', exact: true });
+        this.todoCount = page.locator('.todo-count');
+        this.toggleAllCheckbox = page.locator('.toggle-all');
+
     }
     async addTodo(text: string) {
         // Type a new todo and submit it
@@ -34,11 +39,12 @@ export class TodoPage {
         await this.todoItems.nth(index).locator('.toggle').click();
     }
 
+
     async deleteTodo(index: number) {
-        // Hover over the item to reveal the delete button, then remove it
         const item = this.todoItems.nth(index);
+        // Hover is required because the (X) button is hidden until hover
         await item.hover();
-        await item.locator('.destroy').click();
+        await item.locator('button.destroy').click();
     }
 
     async filterByActive() {
@@ -55,12 +61,17 @@ export class TodoPage {
         const todoItem = this.todoItems.nth(index);
 
         // Enter edit mode by double-clicking the todo
-        await todoItem.dblclick(); 
+        await todoItem.dblclick();
 
         // Update the text and confirm the change
         const editInput = todoItem.locator('input.edit');
         await editInput.fill(newText);
         await editInput.press('Enter');
+    }
+
+
+    async filterByAll() {
+        await this.allFilter.click();
     }
 
 }

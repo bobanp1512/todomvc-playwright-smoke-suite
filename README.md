@@ -1,62 +1,94 @@
-TodoMVC Automation Task
+# TodoMVC Automation Task
 
---- Overview
-This repository contains a professional automation suite for the TodoMVC Playwright Demo. The suite focuses on Smoke Testing the core functional requirements, including the full CRUD lifecycle and UI-specific interactions.
+## Overview
+This repository contains an end-to-end automation test suite for the TodoMVC Playwright Demo application.
 
---- Project Architecture
-The project is built using the Page Object Model (POM) pattern. This ensures that locators and page-specific actions are decoupled from the test logic, making the suite resilient to UI changes.
+The suite focuses on **smoke testing core functionality**, covering the full CRUD lifecycle, filtering, UI interactions, and key edge cases.
 
-tests/: Contains functional test files (todo.spec.ts).
+---
 
-pages/: Contains the TodoPage class with encapsulated locators and methods.
+## Project Architecture
+The project follows the **Page Object Model (POM)** design pattern.
 
-.github/workflows/: Includes a CI/CD pipeline configuration for automated test execution on every push.
+This approach separates UI interactions from test logic, improving:
+- Maintainability
+- Readability
+- Reusability
 
---- Tech Stack
-Playwright: For cross-browser, reliable E2E testing.
+**Structure:**
+- `tests/` – Contains all test cases (`todo.spec.ts`)
+- `pages/` – Contains the `TodoPage` class with locators and reusable actions
+- `.github/workflows/` – CI configuration for automated test execution
 
-TypeScript: For type safety and better maintainability.
+---
 
-Web-first Assertions: Using Playwright's built-in expect to handle automatic waiting and reduce flakiness.
+## Tech Stack
+- **Playwright** – End-to-end testing framework  
+- **TypeScript** – Strong typing and maintainability  
+- **Playwright Assertions** – Built-in auto-waiting for stable tests  
 
---- Getting Started
-Prerequisites
-Node.js (v18 or higher)
+---
 
-Installation
-Extract the project folder.
+## Getting Started
 
-Open your terminal in the project root and install dependencies:
+## Prerequisites
+- Node.js (v18 or higher)
 
-Bash
+## Installation
+```bash
 npm install
+```
 
+## Test Execution
 
-### Execution
-To run all tests in **headed mode** (useful for the demo):
+### Run tests in headed mode (useful for demo)
 ```bash
 npx playwright test --headed
-To run tests in headless mode (default for CI):
+```
 
-Bash
+### Run tests in headless mode (default for CI)
+```bash
 npx playwright test
-To view the generated HTML report:
-
-Bash
+```
+### View HTML report
+```bash
 npx playwright show-report
+```
 
 
---- Test Coverage
-The suite executes 6 automated test cases:
+## Test Coverage
 
-TC-01: Add a new todo item.
+The suite includes 16 automated test cases covering core functionality, UI behavior, and edge cases:
 
-TC-02: Mark a todo item as completed.
+## Core Functionality
+TC-01: Add a new todo item
+TC-02: Mark a todo item as completed
+TC-03: Unmark a completed todo item
+TC-04: Delete a todo item
 
-TC-03: Unmark a completed todo item.
+## Filtering
+TC-05: Filter active todo items
+TC-07: Filter completed todo items
+TC-08: Show all todo items
 
-TC-04: Delete a todo item (validates hover interaction).
+## Editing
+TC-06: Edit an existing todo item
+TC-12: Cancel editing using Escape
 
-TC-05: Filter active todo items.
+## Bulk Actions
+TC-09: Clear completed todo items
+TC-13: Toggle all todo items as completed
 
-TC-06: Edit an existing todo item (validates double-click logic).
+## State & Behavior
+TC-10: Persist todo items after page reload
+TC-14: Update items left counter dynamically
+
+## Edge Cases
+TC-11: Prevent adding empty todo item
+TC-15: Trim whitespace from todo titles
+TC-16: Delete todo item by clearing text during edit
+
+## Notes
+Tests are independent and do not rely on shared state
+No hard waits are used; Playwright’s auto-waiting ensures stability
+Tests simulate real user behavior (hover, double-click, keyboard interactions)
