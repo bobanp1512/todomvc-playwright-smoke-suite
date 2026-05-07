@@ -10,7 +10,7 @@ The suite focuses on **smoke testing core functionality**, covering the full CRU
 ## Project Architecture
 The project follows the **Page Object Model (POM)** design pattern.
 
-This approach separates UI interactions from test logic, improving:
+### This approach separates UI interactions from test logic, improving:
 - Maintainability
 - Readability
 - Reusability
@@ -31,10 +31,10 @@ This approach separates UI interactions from test logic, improving:
 
 ## Getting Started
 
-## Prerequisites
+### Prerequisites
 - Node.js (v18 or higher)
 
-## Installation
+### Installation
 ```bash
 npm install
 ```
