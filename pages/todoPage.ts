@@ -1,77 +1,80 @@
 import { Page, Locator } from '@playwright/test';
 
-
 export class TodoPage {
-
-
-    readonly page: Page;
-    readonly input: Locator;
-    readonly todoItems: Locator;
-    readonly clearCompletedButton: Locator;
-    readonly activeFilter: Locator;
-    readonly completedFilter: Locator;
-    readonly allFilter: Locator;
-    readonly todoCount: Locator;
-    readonly toggleAllCheckbox: Locator;
-
-
+    public readonly page: Page;
+    private readonly input: Locator;
+    private readonly todoItems: Locator;
+    private readonly clearCompletedButton: Locator;
+    private readonly activeFilter: Locator;
+    private readonly completedFilter: Locator;
+    private readonly allFilter: Locator;
+    private readonly todoCount: Locator;
+    private readonly toggleAllCheckbox: Locator;
 
     constructor(page: Page) {
         this.page = page;
         this.input = page.locator('.new-todo');
         this.todoItems = page.locator('.todo-list li');
         this.clearCompletedButton = page.locator('.clear-completed');
-        this.activeFilter = page.getByRole('link', { name: 'Active', exact: true });
-        this.completedFilter = page.getByRole('link', { name: 'Completed', exact: true });
-        this.allFilter = page.getByRole('link', { name: 'All', exact: true });
         this.todoCount = page.locator('.todo-count');
         this.toggleAllCheckbox = page.locator('.toggle-all');
 
+        // Using user-facing locators
+        this.activeFilter = page.getByRole('link', { name: 'Active', exact: true });
+        this.completedFilter = page.getByRole('link', { name: 'Completed', exact: true });
+        this.allFilter = page.getByRole('link', { name: 'All', exact: true });
     }
-    async addTodo(text: string) {
-        // Type a new todo and submit it
+
+    async addTodo(text: string): Promise<void> {
         await this.input.fill(text);
         await this.input.press('Enter');
     }
 
-    async completeTodo(index: number) {
-        // Toggle the completion state of a todo item
+    async completeTodo(index: number): Promise<void> {
         await this.todoItems.nth(index).locator('.toggle').click();
     }
 
-
-    async deleteTodo(index: number) {
+    async deleteTodo(index: number): Promise<void> {
         const item = this.todoItems.nth(index);
-        // Hover is required because the (X) button is hidden until hover
         await item.hover();
         await item.locator('button.destroy').click();
     }
 
-    async filterByActive() {
-        // Show only active (not completed) todos
+    async filterByActive(): Promise<void> {
         await this.activeFilter.click();
     }
 
-    async filterByCompleted() {
-        // Show only completed todos
+    async filterByCompleted(): Promise<void> {
         await this.completedFilter.click();
     }
 
-    async editTodo(index: number, newText: string) {
-        const todoItem = this.todoItems.nth(index);
+    async filterByAll(): Promise<void> {
+        await this.allFilter.click();
+    }
 
-        // Enter edit mode by double-clicking the todo
+    async editTodo(index: number, newText: string): Promise<void> {
+        const todoItem = this.todoItems.nth(index);
         await todoItem.dblclick();
 
-        // Update the text and confirm the change
         const editInput = todoItem.locator('input.edit');
         await editInput.fill(newText);
         await editInput.press('Enter');
     }
 
-
-    async filterByAll() {
-        await this.allFilter.click();
+    // --- Public Getters to Enforce Strict Encapsulation ---
+    public get items(): Locator {
+        return this.todoItems;
     }
 
+    public get counter(): Locator {
+        return this.todoCount;
+    }
+
+    public get clearCompleted(): Locator {
+        return this.clearCompletedButton;
+    }
+
+    public get toggleAll(): Locator {
+        return this.toggleAllCheckbox;
+    }
 }
